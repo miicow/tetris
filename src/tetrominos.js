@@ -1,5 +1,5 @@
 //prettier-ignore
-export const TETRONMINOS = {
+export const TETROMINOS = {
   0: { shape: [[0]], color: '0, 0, 0' },
   I: {
     shape: [
@@ -64,4 +64,12 @@ export const TETRONMINOS = {
     color: '0, 128, 0'
   },
 
+};
+
+export const generateRandomTetrominos = () => {
+  const tetrominos = 'IJLOTZS';
+  const randomTetrominos =
+    tetrominos[Math.floor(Math.random() * tetrominos.length)];
+
+  return TETROMINOS[randomTetrominos];
 };
