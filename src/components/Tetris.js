@@ -3,10 +3,15 @@ import Stage from './Stage';
 import Display from './Display';
 import StartButton from './StartButton';
 
+import { createGameArea } from '../Helpers';
+
 const Tetris = () => {
+  {
+    console.log(createGameArea());
+  }
   return (
     <div>
-      <Stage />
+      <Stage stage={createGameArea()} />
 
       <scoreTracker>
         <div>
