@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { generateRandomTetromino } from '../tetrominos';
+import { generateRandomTetrominos } from '../tetrominos';
 
 export const usePlayer = () => {
   //player is the state, and setPlayer is the setter for the player state
   //passing parameter into useState sets the initial state
   const [player, setPlayer] = useState({
     position: { x: 0, y: 0 },
-    tetromino: generateRandomTetromino().shape,
+    tetromino: generateRandomTetrominos().shape,
     collide: false
   });
 
