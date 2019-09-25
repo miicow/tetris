@@ -17,7 +17,7 @@ You will also see any lint errors in the console.
 ## React Tetris
 
 Created using:
-1. [Create React App](https://github.com/facebook/create-react-app).
+1. [Create React App](https://github.com/facebook/create-react-app)
 2. [React](https://reactjs.org/)
 3. [React Hooks](https://reactjs.org/docs/hooks-intro.html)
 4. [styled-components](https://www.styled-components.com/)
