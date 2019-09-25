@@ -110,7 +110,7 @@ const Tetris = () => {
       <StyledTetris>
         <GameArea area={gameArea} />
 
-        <scoreTracker>
+        <scoretracker>
           {gameOver ? (
             <Display gameOver={gameOver} text="Game Over" />
           ) : (
@@ -121,7 +121,7 @@ const Tetris = () => {
             </div>
           )}
           <StartButton callback={startGame} />
-        </scoreTracker>
+        </scoretracker>
       </StyledTetris>
     </StyledTetrisWrapper>
   );

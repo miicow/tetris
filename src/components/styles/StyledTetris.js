@@ -15,7 +15,7 @@ export const StyledTetris = styled.div`
   margin: 0 auto;
   max-width: 900px;
 
-  scoreTracker {
+  scoretracker {
     width: 100%;
     max-width: 200px;
     display: block;
