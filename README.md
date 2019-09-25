@@ -2,6 +2,11 @@
 
 Disclaimer: Work in Progress!
 
+1. Collision when the game end at the top
+2. Display end score when game over
+3. Next tetromino
+4. Optimzation
+
 ## Available Scripts
 
 In the project directory, you can run:
