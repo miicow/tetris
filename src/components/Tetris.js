@@ -30,7 +30,7 @@ const Tetris = () => {
   };
 
   const moveDown = () => {
-    updatePlayerPosition({ x: 0, y: 1, collided: false });
+    updatePlayerPosition({ x: 0, y: 1, collide: false });
   };
 
   const moveBlockDown = () => {
@@ -39,7 +39,8 @@ const Tetris = () => {
 
   //callback function when keys are pressed
   //keycode is destructed from event
-  const keyPress = ({ keycode }) => {
+  const keyPress = keycode => {
+    console.log('line 43:', keycode);
     if (!gameOver) {
       //keycode does not need to be event.keycode
       //keycode 37 is left arrow key
@@ -60,7 +61,7 @@ const Tetris = () => {
     <StyledTetrisWrapper
       role="button"
       tabIndex="0"
-      onKeyDown={event => keyPress(event)}
+      onKeyDown={event => keyPress(event.keyCode)}
     >
       <StyledTetris>
         <GameArea area={gameArea} />
@@ -75,7 +76,7 @@ const Tetris = () => {
               <Display text="Level"></Display>
             </div>
           )}
-          <StartButton onClick={startGame()} />
+          <StartButton callback={startGame} />
         </scoreTracker>
       </StyledTetris>
     </StyledTetrisWrapper>
