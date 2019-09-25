@@ -8,6 +8,7 @@ import { createGameArea, collisionDetect } from '../Helpers';
 import { StyledTetrisWrapper, StyledTetris } from './styles/StyledTetris';
 
 //custom hooks
+import { useInterval } from '../hooks/useInterval';
 import { usePlayer } from '../hooks/usePlayer';
 import { useArea, useGameArea } from '../hooks/useArea';
 
@@ -28,6 +29,7 @@ const Tetris = () => {
   const startGame = () => {
     //reset everything
     setGameArea(createGameArea());
+    setDropSpeed(1000);
     resetPlayer();
     setGameOver(false);
   };
@@ -44,37 +46,53 @@ const Tetris = () => {
     }
   };
 
+  const keyUp = ({ keyCode }) => {
+    if (!gameOver) {
+      if (keyCode === 40) {
+        console.log('interval on');
+        setDropSpeed(1000);
+      }
+    }
+  };
+
   const moveBlockDown = () => {
+    console.log('interval off');
+    setDropSpeed(null);
     moveDown();
   };
 
   //callback function when keys are pressed
   //keycode is destructed from event
-  const keyPress = keycode => {
+  const keyPress = ({ keyCode }) => {
     if (!gameOver) {
       //keycode does not need to be event.keycode
       //keycode 37 is left arrow key
-      if (keycode === 37) {
+      if (keyCode === 37) {
         arrowKeyMovement(-1);
         //keycode 39 is right arrow key
-      } else if (keycode === 39) {
+      } else if (keyCode === 39) {
         arrowKeyMovement(1);
         //keycode 40 is down arrow key
-      } else if (keycode === 40) {
+      } else if (keyCode === 40) {
         moveBlockDown();
         //keycode 38 is up arrow key
-      } else if (keycode === 38) {
+      } else if (keyCode === 38) {
         playerRotate(gameArea, 1);
       }
     }
   };
+
+  useInterval(() => {
+    moveDown();
+  }, dropSpeed);
 
   return (
     //wrapper div is created for the game to take our key press inputs
     <StyledTetrisWrapper
       role="button"
       tabIndex="0"
-      onKeyDown={event => keyPress(event.keyCode)}
+      onKeyDown={event => keyPress(event)}
+      onKeyUp={keyUp}
     >
       <StyledTetris>
         <GameArea area={gameArea} />
