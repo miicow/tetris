@@ -3,8 +3,21 @@ import { createGameArea } from '../Helpers';
 
 export const useGameArea = (player, resetPlayer) => {
   const [gameArea, setGameArea] = useState(createGameArea());
+  const [rowsCleared, setRowsCleared] = useState(0);
 
   useEffect(() => {
+    setRowsCleared(0);
+
+    const sweepRows = newStage =>
+      newStage.reduce((accumlator, row) => {
+        if (row.findIndex(cell => cell[0] === 0) === -1) {
+          setRowsCleared(previous => previous + 1);
+          accumlator.unshift(new Array(newStage[0].length).fill([0, 'clear']));
+          return accumlator;
+        }
+        accumlator.push(row);
+        return accumlator;
+      }, []);
     const updateArea = previousArea => {
       //first flush the state
       const newStage = previousArea.map(row =>
@@ -26,6 +39,7 @@ export const useGameArea = (player, resetPlayer) => {
       //check if we collided
       if (player.collide) {
         resetPlayer();
+        return sweepRows(newStage);
       }
 
       return newStage;
@@ -36,5 +50,5 @@ export const useGameArea = (player, resetPlayer) => {
     //change to player, to rerender even if the previous tetromino is the same as upcoming
   }, [player, resetPlayer]);
 
-  return [gameArea, setGameArea];
+  return [gameArea, setGameArea, rowsCleared];
 };
