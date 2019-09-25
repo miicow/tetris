@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { generateRandomTetrominos, TETROMINOS } from '../tetrominos';
-import { AREA_WIDTH } from '../Helpers';
+import { AREA_WIDTH, collisionDetect } from '../Helpers';
 
 export const usePlayer = () => {
   //player is the state, and setPlayer is the setter for the player state
@@ -38,6 +38,20 @@ export const usePlayer = () => {
     //never mutate state - create a clone
     const clonedPlayer = JSON.parse(JSON.stringify(player));
     clonedPlayer.tetromino = rotate(clonedPlayer.tetromino, direction);
+
+    //prevent rotate from rotating out of bound
+    const position = clonedPlayer.position.x;
+    let offset = 1;
+    while (collisionDetect(clonedPlayer, area, { x: 0, y: 0 })) {
+      clonedPlayer.position.x += offset;
+      offset = -(offset + (offset > 0 ? 1 : -1));
+
+      if (offset > clonedPlayer.tetromino[0].length) {
+        rotate(clonedPlayer.tetromino, -direction);
+        clonedPlayer.position.x = position;
+        return;
+      }
+    }
 
     setPlayer(clonedPlayer);
   };
