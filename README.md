@@ -2,6 +2,11 @@
 
 Disclaimer: Work in Progress!
 
+1. Collision when the game end at the top
+2. Display end score when game over
+3. Next tetromino
+4. Optimzation
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -17,13 +22,13 @@ You will also see any lint errors in the console.
 ## React Tetris
 
 Created using:
-[Create React App](https://github.com/facebook/create-react-app).
-[React](https://reactjs.org/)
-[React Hooks](https://reactjs.org/docs/hooks-intro.html)
-[styled-components](https://www.styled-components.com/)
+1. [Create React App](https://github.com/facebook/create-react-app)
+2. [React](https://reactjs.org/)
+3. [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+4. [styled-components](https://www.styled-components.com/)
 
 Tutorial:
-[freeCodeCamp](https://www.youtube.com/watch?v=ZGOaCxX8HIU)
+1. [freeCodeCamp](https://www.youtube.com/watch?v=ZGOaCxX8HIU)
 
 <!-- ### `npm test`
 
