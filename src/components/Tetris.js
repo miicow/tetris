@@ -62,14 +62,12 @@ const Tetris = () => {
   const keyUp = ({ keyCode }) => {
     if (!gameOver) {
       if (keyCode === 40) {
-        console.log('interval on');
         setDropSpeed(1000 / (level + 1) + 200);
       }
     }
   };
 
   const moveBlockDown = () => {
-    console.log('interval off');
     setDropSpeed(null);
     moveDown();
   };
