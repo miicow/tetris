@@ -24,6 +24,24 @@ export const usePlayer = () => {
     }));
   };
 
+  const rotate = (maxtrix, direction) => {
+    //make rows to become columns (transpose)
+    const rotatedTetromino = maxtrix.map((_, index) =>
+      maxtrix.map(column => column[index])
+    );
+    //reverse each row to get rotated matrix or tetromino in this case
+    if (direction > 0) return rotatedTetromino.map(row => row.reverse());
+    return rotatedTetromino.reverse();
+  };
+
+  const playerRotate = (area, direction) => {
+    //never mutate state - create a clone
+    const clonedPlayer = JSON.parse(JSON.stringify(player));
+    clonedPlayer.tetromino = rotate(clonedPlayer.tetromino, direction);
+
+    setPlayer(clonedPlayer);
+  };
+
   const resetPlayer = useCallback(() => {
     setPlayer({
       position: { x: AREA_WIDTH / 2 - 2, y: 0 },
@@ -33,5 +51,5 @@ export const usePlayer = () => {
   }, []);
 
   //returning the player before we needed to import this custom hook later
-  return [player, updatePlayerPosition, resetPlayer];
+  return [player, updatePlayerPosition, resetPlayer, playerRotate];
 };

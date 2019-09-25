@@ -16,7 +16,7 @@ const Tetris = () => {
   const [dropSpeed, setDropSpeed] = useState(null);
   const [gameOver, setGameOver] = useState(false);
 
-  const [player, updatePlayerPosition, resetPlayer] = usePlayer();
+  const [player, updatePlayerPosition, resetPlayer, playerRotate] = usePlayer();
   const [gameArea, setGameArea] = useGameArea(player, resetPlayer);
 
   const arrowKeyMovement = direction => {
@@ -62,6 +62,9 @@ const Tetris = () => {
         //keycode 40 is down arrow key
       } else if (keycode === 40) {
         moveBlockDown();
+        //keycode 38 is up arrow key
+      } else if (keycode === 38) {
+        playerRotate(gameArea, 1);
       }
     }
   };
