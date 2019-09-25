@@ -3,7 +3,7 @@ import GameArea from './GameArea';
 import Display from './Display';
 import StartButton from './StartButton';
 
-import { createGameArea } from '../Helpers';
+import { createGameArea, collisionDetect } from '../Helpers';
 //styled-components
 import { StyledTetrisWrapper, StyledTetris } from './styles/StyledTetris';
 
@@ -20,17 +20,28 @@ const Tetris = () => {
   const [gameArea, setGameArea] = useGameArea(player, resetPlayer);
 
   const arrowKeyMovement = direction => {
-    updatePlayerPosition({ x: direction, y: 0 });
+    if (!collisionDetect(player, gameArea, { x: direction, y: 0 })) {
+      updatePlayerPosition({ x: direction, y: 0 });
+    }
   };
 
   const startGame = () => {
     //reset everything
     setGameArea(createGameArea());
     resetPlayer();
+    setGameOver(false);
   };
 
   const moveDown = () => {
-    updatePlayerPosition({ x: 0, y: 1, collide: false });
+    if (!collisionDetect(player, gameArea, { x: 0, y: 1 })) {
+      updatePlayerPosition({ x: 0, y: 1, collide: false });
+    } else {
+      if (player.position.y < 1) {
+        setGameOver(true);
+        setDropSpeed(null);
+      }
+      updatePlayerPosition({ x: 0, y: 0, collide: true });
+    }
   };
 
   const moveBlockDown = () => {
@@ -40,7 +51,6 @@ const Tetris = () => {
   //callback function when keys are pressed
   //keycode is destructed from event
   const keyPress = keycode => {
-    console.log('line 43:', keycode);
     if (!gameOver) {
       //keycode does not need to be event.keycode
       //keycode 37 is left arrow key

@@ -15,3 +15,25 @@ export const createGameArea = () =>
     //clear will change if merge occurs
     new Array(AREA_WIDTH).fill([0, 'clear'])
   );
+
+export const collisionDetect = (player, area, { x: moveX, y: moveY }) => {
+  for (let y = 0; y < player.tetromino.length; y += 1) {
+    for (let x = 0; x < player.tetromino[y].length; x += 1) {
+      //check cell is not the empty cell but a tetromino
+      if (player.tetromino[y][x] !== 0) {
+        if (
+          //check move is within the boundary of the height(y)
+          !area[y + player.position.y + moveY] ||
+          //check move is within the boundary of width(x)
+          !area[y + player.position.y + moveY][x + player.position.x + moveX] ||
+          //check cell that we are moving to isnt set to 'clear'
+          area[y + player.position.y + moveY][
+            x + player.position.x + moveX
+          ][1] !== 'clear'
+        ) {
+          return true;
+        }
+      }
+    }
+  }
+};

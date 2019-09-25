@@ -23,13 +23,18 @@ export const useGameArea = (player, resetPlayer) => {
         });
       });
 
+      //check if we collided
+      if (player.collide) {
+        resetPlayer();
+      }
+
       return newStage;
     };
 
     setGameArea(previous => updateArea(previous));
     //dependecy array
     //change to player, to rerender even if the previous tetromino is the same as upcoming
-  }, [player]);
+  }, [player, resetPlayer]);
 
   return [gameArea, setGameArea];
 };
